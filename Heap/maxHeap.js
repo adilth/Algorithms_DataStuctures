@@ -9,7 +9,7 @@ class MaxHeap {
     this.size = 0;
   }
   getParentIdx(index) {
-    return Math.floor(index - 1 / 2);
+    return Math.floor((index - 1) / 2);
   }
   getLeftIdx(index) {
     return 2 * index + 1;
@@ -48,7 +48,7 @@ class MaxHeap {
   insert(element) {
     this.values.push(element);
     this.size += 1;
-    this.heapifyUp(this.values.length - 1);
+    this.heapifyUp();
   }
   swap(index1, index2) {
     [this.values[index1], this.values[index2]] = [
@@ -56,55 +56,27 @@ class MaxHeap {
       this.values[index1],
     ];
   }
-  // heapifyUp(index) {
-  //   let curr = index;
-  //   let parent = this.getParentIdx(curr);
-  //   while (curr > 0 && this.values[parent] < this.values[curr]) {
-  //     this.swap(curr, parent);
-  //     curr = parent;
-  //     parent = this.getParentIdx(parent);
-  //   }
-  // }
-  heapifyUp(index) {
-    let currentIndex = index,
-      parentIndex = this.getParentIdx(currentIndex);
-
-    // while we haven't reached the root node and the current element is greater than its parent node
-    while (
-      currentIndex > 0 &&
-      this.values[currentIndex] > this.values[parentIndex]
-    ) {
-      // swap
-      this.swap(currentIndex, parentIndex);
-      // move up the binary heap
-      currentIndex = parentIndex;
-      parentIndex = this.getParentIdx(parentIndex);
+  heapifyUp() {
+    let curr = this.size - 1;
+    let parent = this.getParentIdx(curr);
+    while (curr > 0 && this.values[parent] < this.values[curr]) {
+      this.swap(curr, parent);
+      curr = parent;
+      parent = this.getParentIdx(parent);
     }
   }
   heapifyDown() {
     let index = 0;
-    // while (this.hasLeft(index)) {
-    //   let max = this.getLeftIdx(index);
-    //   if (this.hasRight(index) && this.right(index) > this.left(index)) {
-    //     max = this.getRightIdx(index);
-    //   }
-    //   if (this.values[index] > this.values[max]) break;
-    //   else this.swap(index, max);
-    //   index = max;
-    // }
     if (!this.isLeaf(index)) {
-      let leftChild = this.getLeftIdx(index);
-      let rightChild = this.getRightIdx(index);
       largest = index;
-      if (this.values[leftChild] > this.values[largest]) {
-        largest = leftChild;
+      if (this.left(index) > this.values[largest]) {
+        largest = this.getLeftIdx(index);
       }
-      if (this.values[rightChild] >= this.values[largest]) {
+      if (this.right(index) >= this.values[largest]) {
         // reassign largest index to right child index
-        largest = rightChild;
+        largest = this.getRightIdx(index);
       }
       if (largest !== index) {
-        // swap
         this.swap(index, largest);
         // recursively move down the heap
         this.heapifyDown();
@@ -117,31 +89,7 @@ class MaxHeap {
     const end = this.values.pop();
     this.values[0] = end;
 
-    // let index = 0;
-    // const length = this.values.length;
-    // const current = this.values[0];
     this.heapifyDown();
-    // while (true) {
-    //   let leftChild, rightChild;
-    //   let swap = null;
-
-    //   if (this.getLeftIdx(index) < length) {
-    //     leftChild = this.values[this.getLeftIdx(index)];
-    //     if (leftChild > current) swap = this.getLeftIdx(index);
-    //   }
-    //   if (this.getRightIdx(index) < length) {
-    //     rightChild = this.values[this.getRightIdx(index)];
-    //     if (
-    //       (swap === null && rightChild > current) ||
-    //       (swap !== null && rightChild > leftChild)
-    //     )
-    //       swap = this.getRightIdx(index);
-    //   }
-    //   if (swap === null) break;
-    //   this.values[index] = this.values[swap];
-    //   this.values[swap] = current;
-    //   index = swap;
-    // }
 
     this.size--;
     return max;
@@ -176,13 +124,13 @@ maxHeap.insert(10);
 maxHeap.insert(60);
 maxHeap.insert(50);
 maxHeap.insert(30);
-// console.log(maxHeap.print());
+console.log(maxHeap.print());
 
 // maxHeap.removeMax();
 // maxHeap.removeMax();
 // maxHeap.remove();
 // maxHeap.removeMax();
-console.log(maxHeap);
+// console.log(maxHeap);
 
 class MaxHeaps {
   constructor() {
