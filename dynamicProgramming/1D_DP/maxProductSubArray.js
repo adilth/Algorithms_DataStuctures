@@ -1,5 +1,10 @@
 /**Description 
-* @description
+* @description Given an integer array nums, find a subarray
+ that has the largest product, and return the product.
+
+The test cases are generated so that the answer will fit in a 32-bit integer.
+ * @param {number[]} nums
+ * @return {number}
 
 */
 
@@ -15,4 +20,6 @@ function maxProduct(nums) {
   return res;
 }
 
-console.log(maxProduct([1, 2, 3, -2, -2]));
+console.log(maxProduct([1, 2, 3, -2, -2])); //12
+console.log(maxProduct([2, 3, -2, 4])); //6
+console.log(maxProduct([3, 1, 2, -1, 1, -3])); //6
