@@ -1,6 +1,6 @@
 {
   "name": "algorithms-and-datastuctures",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Algorithms and data-structures implemented on JavaScript",
   "main": "index.js",
