@@ -1,0 +1,31 @@
+{
+  "name": "algorithms-and-datastuctures",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Algorithms and data-structures implemented on JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adilth/Algorithms_DataStuctures.git"
+  },
+  "keywords": [
+    "algorithms",
+    "dataStructures",
+    "graph",
+    "Tree",
+    "recursion",
+    "sorting",
+    "stack",
+    "queue",
+    "dynamic-programming"
+  ],
+  "author": "adil tahiri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adilth/Algorithms_DataStuctures/issues"
+  },
+  "homepage": "https://github.com/adilth/Algorithms_DataStuctures#readme"
+}
