@@ -1,6 +1,7 @@
-/*Description // reverse number
+/**Description // reverse number
 ReverseNumber return the reversed value of the given number.
-
+@param {Number} num
+@returns {Number} reversed num if it greater than two digits
 */
 function reverseNumber(num) {
   if (typeof num !== "number") {
