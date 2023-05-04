@@ -1,5 +1,10 @@
-/*description // pattern matching
-
+/**description // pattern matching
+Pattern matching is case insensitive as the inputs are converted to lower case before thealgorithm is run.
+The algorithm will run through the entire text and
+return the starting index if the given pattern is available in the text
+@param {String} text
+@param {String} pattern
+@returns {String} returns the string with an index or not found if the pattern doesn't exist
 */
 
 function patternMatching(text, pattern) {
