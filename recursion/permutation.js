@@ -1,7 +1,7 @@
 /**Description //permutation
-Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+Given an array of nums or string, return all the possible permutations. You can return the answer in any order.
 
- * @param {number[]} nums
+ * @param {number[]} arr
  * @return {number[][]}
 */
 
@@ -21,7 +21,7 @@ function permutation(arr) {
   return allPermutation;
 }
 
-function allPermutations(items) {
+function allPermutations(arr) {
   let results = [];
   function permute(arr, memo = []) {
     let cur;
@@ -36,7 +36,7 @@ function allPermutations(items) {
     }
     return results;
   }
-  permute(items);
+  permute(arr);
   return results;
 }
 
