@@ -3,7 +3,8 @@ Write a function, summingSquares, that takes a target number as an argument. The
 
 For example: 1, 4, 9, 16 are perfect squares, but 8 is not perfect square.
 
- *@param {number} num
+ *@param {number} n
+ *@param {object = {}} memo 
  *@return {number}
 */
 
