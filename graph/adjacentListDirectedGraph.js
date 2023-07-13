@@ -3,196 +3,184 @@
  *
  */
 
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.adjacent = [];
-  }
-  addAdjacency(node) {
-    this.adjacent.push(node);
-  }
-  removeAdjacency(node) {
-    const index = this.adjacent.indexOf(node);
-    if (index > -1) {
-      this.adjacent.splice(index, 1);
-      return node;
-    }
-  }
-  getAdjacency() {
-    return this.adjacent;
-  }
-  isAdjacent(node) {
-    return this.adjacent.indexOf(node) > -1;
-  }
-}
-
-class Graph {
+export default class Graph {
   constructor() {
-    this.nodes = new Map();
+    this.vertices = new Map();
   }
-  addEdge(source, target) {
-    if (!this.nodes.has(source)) {
-      this.nodes.set(source, new Node(source));
-    }
-    if (!this.nodes.has(target)) {
-      this.nodes.set(target, new Node(target));
-    }
-    this.nodes.get(source).addAdjacency(this.nodes.get(target));
-    return this;
-  }
-  addVertex(value) {
-    if (this.nodes.has(value)) {
-      return this.nodes.get(value);
-    } else {
-      const vertex = new Node(value);
-      this.nodes.set(value, vertex);
-      return vertex;
+  addVertex(vertex) {
+    if (!this.vertices.has(vertex)) {
+      this.vertices.set(vertex, new Set());
     }
   }
-  removeVertex(value) {
-    const current = this.nodes.get(value);
-    if (current) {
-      for (const node of this.nodes.values()) {
-        node.removeAdjacency(current);
+  removeVertex(vertex) {
+    if (this.vertices.has(vertex)) {
+      this.vertices.delete(vertex);
+      for (const [v, edges] of this.vertices.entries()) {
+        edges.delete(vertex);
       }
     }
-    return this.nodes.delete(value);
   }
-  removeEdges(source, destination) {
-    const sourceNode = this.nodes.get(source);
-    const destinationNode = this.nodes.get(destination);
-    if (sourceNode && destinationNode) {
-      sourceNode.removeAdjacency(destinationNode);
-      // if (this.edgeDirection === Graph.UNDIRECTED) {
-      destinationNode.removeAdjacency(sourceNode);
-      // }
-    }
-    return [sourceNode, destinationNode];
-  }
-  bfs(source) {
-    if (source === null) return [];
-    let queue = [this.nodes.get(source)];
-    const visited = new Set();
-    const values = [];
-    while (queue.length) {
-      let node = queue.shift();
-      if (node && !visited.has(node)) {
-        visited.add(node);
-        values.push(node.value);
-        for (const neighbor of node.getAdjacency()) {
-          if (!visited.has(neighbor)) queue.push(neighbor);
-        }
-      }
-    }
-    return values;
-  }
-  dfs(source) {
-    const visited = new Set();
-    const visitList = [this.nodes.get(source)];
-    const values = [];
 
-    while (visitList.length) {
-      const node = visitList.pop();
-      if (node && !visited.has(node)) {
-        visited.add(node);
-        values.push(node.value);
-        for (const neighbor of node.getAdjacency()) {
-          if (!visited.has(neighbor)) visitList.push(neighbor);
+  addEdge(source, destination) {
+    if (this.vertices.has(source) && this.vertices.has(destination)) {
+      const edges = this.vertices.get(source);
+      edges.add(destination);
+    }
+  }
+
+  removeEdge(source, destination) {
+    if (this.vertices.has(source) && this.vertices.has(destination)) {
+      const edges = this.vertices.get(source);
+      edges.delete(destination);
+    }
+  }
+
+  removeAdjacency(vertex) {
+    if (this.vertices.has(vertex)) {
+      this.vertices.get(vertex).clear();
+    }
+  }
+
+  bfs(startVertex) {
+    const visited = new Set();
+    const queue = [startVertex];
+    const result = [];
+
+    visited.add(startVertex);
+    while (queue.length > 0) {
+      const currentVertex = queue.shift();
+      result.push(currentVertex);
+      const edges = this.vertices.get(currentVertex);
+      for (const neighbor of edges) {
+        if (!visited.has(neighbor)) {
+          visited.add(neighbor);
+          queue.push(neighbor);
         }
       }
     }
-    return values;
+
+    return result;
   }
-  areConnectedDFS(source, destination) {
+
+  dfs(startVertex) {
     const visited = new Set();
-    const stack = [this.nodes.get(source)];
-    while (stack.length) {
-      const current = stack.pop();
-      if (current.value === destination) return true;
-      visited.add(current);
-      for (const node of current.getAdjacency()) {
-        if (!visited.has(node)) stack.push(node);
+    const result = [];
+    this.#dfsHelper(startVertex, visited, result);
+
+    return result;
+  }
+
+  #dfsHelper(vertex, visited, result) {
+    visited.add(vertex);
+    result.push(vertex);
+
+    const edges = this.vertices.get(vertex);
+    for (const neighbor of edges) {
+      if (!visited.has(neighbor)) {
+        this.#dfsHelper(neighbor, visited, result);
+      }
+    }
+  }
+
+  areConnected(startVertex, endVertex) {
+    if (!this.vertices.has(startVertex) || !this.vertices.has(endVertex)) {
+      return false;
+    }
+
+    const visited = new Set();
+    const stack = [startVertex];
+    visited.add(startVertex);
+    while (stack.length > 0) {
+      const currentVertex = stack.pop();
+
+      if (currentVertex === endVertex) {
+        return true;
+      }
+
+      const edges = this.vertices.get(currentVertex);
+      for (const neighbor of edges) {
+        if (!visited.has(neighbor)) {
+          visited.add(neighbor);
+          stack.push(neighbor);
+        }
       }
     }
     return false;
   }
-  findPath(source, destination) {
-    const visited = new Set();
-    const queue = [[this.nodes.get(source), []]];
 
-    while (queue.length) {
-      let [currentNode, currentPath] = queue.shift();
-      if (currentNode.value === destination.value) {
-        return [...currentPath, currentNode.value];
-      }
-      visited.add(currentNode);
-      for (let neighbor of currentNode.getAdjacency()) {
-        if (!visited.has(neighbor)) {
-          queue.push([neighbor, [...currentPath, currentNode.value]]);
-        }
-      }
+  findPath(startVertex, endVertex, visited = new Set(), path = []) {
+    if (!this.vertices.has(startVertex) || !this.vertices.has(endVertex)) {
+      return [];
+    }
+    const found = this.#findPathHelper(startVertex, endVertex, visited, path);
+
+    if (found) {
+      return path;
     }
     return [];
   }
-  findPath(source, destination) {
-    const visited = new Set();
-    const stack = [this.nodes.get(source)];
-    const parent = new Map();
-    parent.set(start, null);
-    while (stack.length) {
-      let node = stack.pop();
-      if (!visited.has(node)) {
-        visited.add(node);
-        if (node.value === destination) {
-          const path = [destination];
-          let current = node;
-          while (current !== start) {
-            path.unshift(parent.get(current));
-            current = parent.get(current);
-          }
-          return path;
-        }
-        for (let neighbor of node.getAdjacency()) {
-          if (!visited.has(neighbor)) {
-            stack.push(neighbor);
-            parent.set(neighbor, node);
-          }
+
+  #findPathHelper(vertex, endVertex, visited, path) {
+    visited.add(vertex);
+    path.push(vertex);
+
+    if (vertex === endVertex) {
+      return true;
+    }
+
+    const edges = this.vertices.get(vertex);
+    for (const neighbor of edges) {
+      if (!visited.has(neighbor)) {
+        const found = this.#findPathHelper(neighbor, endVertex, visited, path);
+        if (found) {
+          return true;
         }
       }
     }
-  }
-  getAreNeighbors(node) {
-    return node.getAdjacency().map((neighbor) => neighbor.value);
-  }
-  getAllPaths(source, endNode, path = [], paths = []) {
-    path.push(source.value);
-    if (source === endNode) {
-      paths.push([...path]);
-    } else {
-      for (const neighbor of source.getAdjacency()) {
-        if (!path.includes(neighbor.value)) {
-          this.getAllPaths(neighbor, endNode, path, paths);
-        }
-      }
-    }
+
     path.pop();
+    return false;
+  }
+
+  getAreNeighbors(vertex1, vertex2) {
+    if (!this.vertices.has(vertex1) || !this.vertices.has(vertex2)) {
+      return false;
+    }
+
+    const edges = this.vertices.get(vertex1);
+    return edges.has(vertex2);
+  }
+  getAllPaths(source, endVertex, visited = new Set(), path = [], paths = []) {
+    if (!this.vertices.has(source) || !this.vertices.has(endVertex)) {
+      return [];
+    }
+    this.#getAllPathsHelper(source, endVertex, visited, paths, path);
+
     return paths;
   }
+
+  #getAllPathsHelper(vertex, endVertex, visited, paths, currentPath) {
+    visited.add(vertex);
+    currentPath.push(vertex);
+
+    if (vertex === endVertex) {
+      paths.push([...currentPath]);
+    } else {
+      const edges = this.vertices.get(vertex);
+      for (const neighbor of edges) {
+        if (!visited.has(neighbor)) {
+          this.#getAllPathsHelper(
+            neighbor,
+            endVertex,
+            visited,
+            paths,
+            currentPath
+          );
+        }
+      }
+    }
+
+    visited.delete(vertex);
+    currentPath.pop();
+  }
 }
-
-const graph = new Graph();
-
-const first = graph.addEdge(1, 2);
-graph.addEdge(1, 3);
-graph.addEdge(1, 4);
-graph.addEdge(5, 2);
-graph.addEdge(6, 3);
-graph.addEdge(7, 3);
-graph.addEdge(8, 4);
-graph.addEdge(9, 5);
-graph.addEdge(10, 6);
-
-console.log(graph.areConnectedDFS(9, 2));
-const d = graph.dfs(1);
-console.log(d);
-console.log(graph.getAllPaths(1, 5));
