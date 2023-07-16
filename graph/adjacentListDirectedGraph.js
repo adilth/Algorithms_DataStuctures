@@ -12,6 +12,9 @@ export default class Graph {
       this.vertices.set(vertex, new Set());
     }
   }
+  getVertices(node) {
+    return this.vertices.get(node);
+  }
   removeVertex(vertex) {
     if (this.vertices.has(vertex)) {
       this.vertices.delete(vertex);
