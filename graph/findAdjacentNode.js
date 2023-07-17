@@ -4,14 +4,14 @@
 @returns {Map<String,String[]>}
  */
 
-function createGraph(edges) {
+export function createGraph(edges) {
   let graph = new Map();
   for (let [a, b] of edges) {
-    if (!graph.has(a)) graph.set(a, []);
+    if (!graph.has(a)) graph.set(a, new Set());
 
-    if (!graph.has(b)) graph.set(b, []);
-    graph.get(a).push(b);
-    graph.get(b).push(a);
+    if (!graph.has(b)) graph.set(b, new Set());
+    graph.get(a).add(b);
+    graph.get(b).add(a);
   }
   return graph;
 }
@@ -20,32 +20,25 @@ function createGraph(edges) {
  * @param {Map<String,String[]>} graph
  * @return {String[]}
  */
-function findAdjacentNode(node, graph) {
+export default function findAdjacentNode(node, graph) {
   for (let [key, value] of graph) {
-    if (key === node) {
+    if (key.includes(node)) {
       return value;
     }
   }
 }
 const routes = [
-  ["PHE", "NYR"],
-  ["MEX", "OKL"],
-  ["HEL", "JFK"],
-  ["LOS", "MEX"],
-  ["PHE", "OKL"],
-  ["LIM", "HEL"],
-  ["LOS", "LIM"],
-  ["LAX", "HEL"],
-  ["PHE", "HEL"],
-  ["MEX", "NYR"],
+  ["A", "B"],
+  ["B", "A"],
+  ["A", "C"],
+  ["C", "A"],
 ];
 
 let graph = createGraph(routes);
 let graph2 = createGraph(routes);
 
 console.log(createGraph(routes));
-console.log(findAdjacentNode("HEL", graph)); //[ 'JFK', 'LIM', 'LAX', 'PHE' ]
-console.log(findAdjacentNode("PHE", graph2)); //[ 'NYR', 'OKL', 'HEL' ]
+console.log(findAdjacentNode("A", graph)); //[ 'JFK', 'LIM', 'LAX', 'PHE' ]//[ 'NYR', 'OKL', 'HEL' ]
 /*
 Map(9) {
   'PHE' => [ 'NYR', 'OKL', 'HEL' ],
