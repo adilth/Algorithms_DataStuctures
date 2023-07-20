@@ -5,8 +5,8 @@ You are tasked with splitting the 7th-grade class into two teams for a soccer ga
 @return {String[][]|Array}
 */
 
-function isBipartite(graph) {
-  if (graph === null) return [];
+export default function isBipartite(graph) {
+  if (graph === null || typeof graph !== "object") return [];
   let colored = {};
   let par = [[], []];
   let visited = new Set();
