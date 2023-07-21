@@ -1,10 +1,14 @@
-/* Description // island count
+/** Description // island count
 island count
 Write a function, islandCount, that takes in a grid containing Ws and Ls. W represents water and L represents land. The function should return the number of islands on the grid. An island is a vertically or horizontally connected region of land.
-
+@param {string[][]} grid 
+@returns {number}
  */
 
-function islandCount(grid) {
+export default function islandCount(grid) {
+  if (!Array.isArray(grid)) {
+    throw new Error("Grid must be an array");
+  }
   const visited = new Set();
   let count = 0;
   for (let row = 0; row < grid.length; row++) {
@@ -16,7 +20,7 @@ function islandCount(grid) {
   }
   return count;
 }
-const explore = (grid, row, col, visited) => {
+export const explore = (grid, row, col, visited) => {
   const rowInbounds = 0 <= row && row < grid.length;
   const colInbounds = 0 <= col && col < grid[0].length;
   if (!rowInbounds || !colInbounds) return false;
@@ -41,27 +45,3 @@ const grid = [
   ["L", "W", "W", "L", "L"],
   ["L", "L", "W", "W", "W"],
 ];
-
-const island = islandCount(grid); // -> 3
-// console.log(island);
-const grid1 = [
-  ["L", "W", "W", "L", "W"],
-  ["L", "W", "W", "L", "L"],
-  ["W", "L", "W", "L", "W"],
-  ["W", "W", "W", "W", "W"],
-  ["W", "W", "L", "L", "L"],
-];
-
-const island1 = islandCount(grid1); // -> 4
-console.log(island1);
-
-const grid2 = [
-  ["W", "W", "W", "W"],
-  ["W", "W", "W", "W"],
-  ["W", "W", "W", "W"],
-  ["W", "W", "W", "W"],
-  ["W", "W", "W", "W"],
-];
-
-const island2 = islandCount(grid2); // -> 0
-console.log(island2);
