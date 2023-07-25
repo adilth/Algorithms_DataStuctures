@@ -11,22 +11,26 @@ Given edges and the integers n, source, and destination, return true if there is
  * @param {number} end
  * @return {boolean}
  */
-
-function pathExists(n, edges, start, end) {
-  if (start === end) {
-    return true;
-  }
+function buildGraph(edges) {
   const graph = new Map();
   edges.forEach(([a, b]) => {
     if (!graph.has(a)) {
-      graph.set(a, []);
+      graph.set(a, new Set());
     }
     if (!graph.has(b)) {
-      graph.set(b, []);
+      graph.set(b, new Set());
     }
-    graph.get(a).push(b);
-    graph.get(b).push(a);
+    graph.get(a).add(b);
+    graph.get(b).add(a);
   });
+  return graph;
+}
+export default function pathExists(n, edges, start, end) {
+  if (!Array.isArray(edges) || edges.length === 0) return false;
+  if (start === end) {
+    return true;
+  }
+  let graph = buildGraph(edges);
   //prevent revisiting nodes
   const visited = new Array(n);
   let queue = [start];
