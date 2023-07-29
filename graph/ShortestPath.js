@@ -1,8 +1,14 @@
 /*Description //short path in graph
-
+find the shortest path in the graph and return number of nodes take to target node you will get edges for nodes and start node and target node and return number that take to target node
 */
-
-function shortestPath(edges, nodeA, nodeB) {
+/**
+ * @param {Array<Number| String>} edges
+ * @param {Number | String} nodeA
+ * @param {Number | String} nodeB
+ * @returns {Number}
+ */
+export default function shortestPath(edges, nodeA, nodeB) {
+  if (!Array.isArray(edges) || edges.length === 0) return -1;
   let graph = convertToGraph(edges);
   let visited = new Set([nodeA]);
   let queue = [[nodeA, 0]];
@@ -19,7 +25,7 @@ function shortestPath(edges, nodeA, nodeB) {
   return -1;
 }
 
-function convertToGraph(edges) {
+export function convertToGraph(edges) {
   let graph = {};
   for (let [a, b] of edges) {
     if (!(a in graph)) graph[a] = [];
@@ -29,38 +35,3 @@ function convertToGraph(edges) {
   }
   return graph;
 }
-
-const edges = [
-  ["w", "x"],
-  ["x", "y"],
-  ["z", "y"],
-  ["z", "v"],
-  ["w", "v"],
-];
-const shortOne = shortestPath(edges, "w", "z"); // -> 2
-console.log(shortOne);
-const edges2 = [
-  ["a", "c"],
-  ["a", "b"],
-  ["c", "b"],
-  ["c", "d"],
-  ["b", "d"],
-  ["e", "d"],
-  ["g", "f"],
-];
-
-const shortTwo = shortestPath(edges2, "a", "e"); // -> 3
-console.log(shortTwo);
-
-const edges3 = [
-  ["a", "c"],
-  ["a", "b"],
-  ["c", "b"],
-  ["c", "d"],
-  ["b", "d"],
-  ["e", "d"],
-  ["g", "f"],
-];
-
-const shortThree = shortestPath(edges3, "b", "g"); // -> -1
-console.log(shortThree);
