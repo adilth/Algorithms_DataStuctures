@@ -5,12 +5,14 @@
  * @return {Number} - The number of vowels
  * */
 
-function countVowels(str) {
+export default function countVowels(str) {
   if (typeof str !== "string") {
     throw new TypeError("Input should be a string");
   }
   let vowels = ["a", "e", "i", "o", "u"];
-  let char = str.split("").filter((e) => vowels.includes(e));
+  let char = str
+    .split("")
+    .filter((e) => vowels.includes(e.toLocaleLowerCase()));
   return char.length;
 }
 /*
