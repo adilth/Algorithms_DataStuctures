@@ -6,13 +6,11 @@
 
 */
 
-function isCamelCaseWithoutRegex(str) {
-  // Check if the string starts with a lowercase letter
+export default function isCamelCaseWithoutRegex(str) {
   if (str.charAt(0) !== str.charAt(0).toLowerCase()) {
     return false;
   }
 
-  // Check if the string contains any non-alphabetic characters
   for (let i = 0; i < str.length; i++) {
     const charCode = str.charCodeAt(i);
     if (
@@ -23,7 +21,6 @@ function isCamelCaseWithoutRegex(str) {
     }
   }
 
-  // Check if the string contains any uppercase letters
   for (let i = 0; i < str.length; i++) {
     const charCode = str.charCodeAt(i);
     if (charCode >= 65 && charCode <= 90) {
@@ -32,12 +29,10 @@ function isCamelCaseWithoutRegex(str) {
     }
   }
 
-  // If the string passes all checks, it is not camelCase
   return false;
 }
 
-const isCamelCase = (str) => {
-  // Check if the string starts with a lowercase letter
+export const isCamelCase = (str) => {
   if (str.charAt(0) !== str.charAt(0).toLowerCase()) {
     return false;
   }
