@@ -4,7 +4,7 @@
  * @return {Number} - The index of first unique character.
  */
 
-function firstUniqueChar(str) {
+export default function firstUniqueChar(str) {
   if (typeof str !== "string") {
     throw new TypeError("Argument should be a string");
   }
