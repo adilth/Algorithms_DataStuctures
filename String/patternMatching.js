@@ -7,7 +7,7 @@ return the starting index if the given pattern is available in the text
 @returns {String} returns the string with an index or not found if the pattern doesn't exist
 */
 
-function patternMatching(text, pattern) {
+export default function patternMatching(text, pattern) {
   if (typeof text !== "string" || typeof pattern !== "string") {
     return "Given input is not a string";
   }
