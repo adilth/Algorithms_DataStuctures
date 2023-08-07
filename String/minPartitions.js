@@ -8,7 +8,10 @@ function minPartitions(s) {
   return Math.max(...s);
 }
 export default function generateDeciBinary(n) {
-  const digits = n.toString().split("").map(Number);
+  if (typeof +n !== "number") {
+    throw new Error("invalid input: n must be a number");
+  }
+  const digits = Math.abs(n).toString().split("").map(Number);
   const maxDigit = Math.max(...digits);
 
   // Initialize deci-binary numbers array
@@ -20,7 +23,6 @@ export default function generateDeciBinary(n) {
     for (let j = 0; j < maxDigit; j++) {
       deciBinaryNumbers[j].push(j < digit ? "1" : "0");
     }
-    console.log(deciBinaryNumbers);
   }
 
   // Convert deci-binary numbers to integers
@@ -32,5 +34,5 @@ export default function generateDeciBinary(n) {
 }
 
 console.log(minPartitions("32")); //3
-let min = generateDeciBinary(82734);
+let min = generateDeciBinary(0);
 console.log(min); //3
