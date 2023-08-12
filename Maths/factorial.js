@@ -5,6 +5,9 @@ factorial, in mathematics, the product of all positive integers less than or equ
 */
 
 export const factorial = (n) => {
+  if (n < 0) {
+    throw new Error("Factorial is not defined for negative integers.");
+  }
   let fact = 1;
   while (n !== 0) {
     fact *= n;
