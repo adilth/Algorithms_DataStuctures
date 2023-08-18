@@ -5,11 +5,11 @@
  * @return {number}
  */
 
-function getBit(number, bitPosition) {
+export function getBit(number, bitPosition) {
   return (number >> bitPosition) & 1;
 }
 
-function setBit(number, bitPosition) {
+export function setBit(number, bitPosition) {
   return number | (1 << bitPosition);
 }
 
@@ -25,4 +25,3 @@ console.log(setBit(64, 6)); //64
 console.log(setBit(1, 1)); //3
 console.log(setBit(15, 1)); //15
 console.log(setBit(100, 0)); //101
-log;
