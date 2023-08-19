@@ -5,7 +5,7 @@
  * @return {Integer} - Returns x^n.
  * */
 
-function powLog(x, n) {
+export default function powLog(x, n) {
   if (n == 0) return 1;
   const result = powLog(x, Math.floor(n / 2));
   if (n % 2 == 0) return result * result;
