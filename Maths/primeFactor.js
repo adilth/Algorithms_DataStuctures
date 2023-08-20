@@ -4,7 +4,7 @@ A prime factor is a natural number, other than 1, whose only factors are 1 and i
 *@returns {number[]} primeFactors: Array of all prime factors of n
 */
 
-function primeFactors(n) {
+export default function primeFactors(n) {
   let primeFac = [];
   for (let i = 2; i * i <= n; i++) {
     while (n % i == 0) {
