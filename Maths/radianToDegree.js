@@ -1,9 +1,9 @@
-/*Description // radian to degrees
+/**Description // radian to degrees
 
  * @param {number} radian
  * @return {number}
 */
 
-function radianToDegrees(radian) {
+export default function radianToDegrees(radian) {
   return radian * (180 / Math.PI);
 }
