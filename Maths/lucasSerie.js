@@ -1,8 +1,10 @@
-/*Description // lucas series 
+/**Description // lucas series 
 Lucas numbers are similar to Fibonacci numbers. Lucas numbers are also defined as the sum of its two immediately previous terms. But here the first two terms are 2 and 1 whereas in Fibonacci numbers the first two terms are 0 and 1 respectively. 
+@param {Number} idx 
+@return {Number}
 */
 
-function lucasSeries(idx) {
+export default function lucasSeries(idx) {
   if (idx < 0) throw new TypeError("Index cannot be Negative");
 
   let a = 2;
