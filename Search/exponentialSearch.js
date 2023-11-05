@@ -1,4 +1,4 @@
-/*Description: // exponential search 
+/**Description: // exponential search 
 
 1- Check if the first element of the array matches the target value val. If it does, return 0 (the index of the first element).
 2- Set the variable i to 1.
@@ -9,10 +9,12 @@
 Exponential search has a time complexity of O(log n) for finding the range of indices and O(log n) for performing the binary search, giving it a total time complexity of O(log n)
 
 */
-
 import { binarySearch } from "./binarySearch.js";
+/**
+ * @param {number[]} arr
+ *@param {number} val */
 
-function exponentialSearch(arr, val) {
+export function exponentialSearch(arr, val) {
   if (arr[0] === val) return 0;
   let i = 1;
   while (i < arr.length && arr[i] <= val) {
