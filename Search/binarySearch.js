@@ -9,8 +9,10 @@ Binary search is an efficient algorithm to search for a specific target value in
 3- Compare the target value with the value at the middle index arr[mid]. If they are equal, we have found the target value and we can return the index mid. If the target value is less than arr[mid], we can discard the second half of the array by setting end to mid-1. Otherwise, we can discard the first half of the array by setting start to mid+1.
 
 4 -Repeat steps 2-3 until either the target value is found or start is greater than end, which means the target value is not in the array.
-@param {Array[]} arr
-@param {number || string} target
+@param {number[]} arr
+@param {number | string} target
+@param {number} low
+@param {number} high
 @returns {number || string} 
 */
 
