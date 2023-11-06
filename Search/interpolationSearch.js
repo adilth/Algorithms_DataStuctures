@@ -1,4 +1,4 @@
-/*Description // interpolation search
+/**Description // interpolation search
 
 Here's how the algorithm works:
 
@@ -10,9 +10,12 @@ Here's how the algorithm works:
 5- If the value at pos is greater than the target value val, update high to pos - 1.
 6- Repeat steps 2-5 until the target value is found or the search space is exhausted.
 7- If the target value was not found, return -1.
+
+*@param {number} arr 
+*@param {number} val 
 */
 
-function interpolationSearch(arr, val) {
+export function interpolationSearch(arr, val) {
   let low = 0;
   let high = arr.length - 1;
 
