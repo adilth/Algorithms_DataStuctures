@@ -11,11 +11,11 @@ Here's how the algorithm works:
 5- If the target value was not found, return -1.
 Fibonacci search has a time complexity of O(log n) and a space complexity of O(1), which makes it an efficient algorithm for searching large arrays.
 
-@param {Array[]} arr
-@param {number || string} target
-@returns {number || string} 
+@param {number[]} arr
+@param {number | string} target
+@returns {number | -1} 
 */
-function fibonacciSearch(arr, target) {
+export function fibonacciSearch(arr, target) {
   // Initialize Fibonacci numbers
   let fib2 = 0; // (n-2)th Fibonacci number
   let fib1 = 1; // (n-1)th Fibonacci number
