@@ -13,10 +13,10 @@ Once the loop ends, the maxSum is returned.
 This function is useful when we want to find the maximum sum of a subarray of length num within an array. The sliding window approach provides an efficient way to solve such problems.
  * @param {number[]} arr - An array of integers on which we will perform the test.
  * @param {number} num - An integer that displays the size of the window you want to check.
- * @returns {number / Null} - Returns a total of N consecutive numbers or null
+ * @returns - Returns a total of N consecutive numbers or null
 */
 
-function slidingWindowMaxSubarraySum(arr, num) {
+export function slidingWindowMaxSubarraySum(arr, num) {
   // Edge Case:
   // If the length of the array shorter than the window size (num) return null.
   if (arr.length < num) return null;
