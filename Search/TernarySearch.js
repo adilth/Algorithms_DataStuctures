@@ -3,8 +3,16 @@
  The value of the key will first be compared with the two mid points, the value will be returned if there is a match. Then, if the value of the key is less than mid1, narrow the interval to the first part. Else, if the value of the
  key is greater than mid2, narrow the interval to the third part. Otherwise,narrow the interval to the middle part. Repeat the steps until the value is found or the interval is empty (value not found after checking all elements).
 */
+/**
+ *
+ * @param {number[]} arr
+ * @param {number} key
+ * @param {number} low
+ * @param {number} high
+ * @returns
+ */
 
-function ternarySearch(arr, key, low = 0, high = arr.length - 1) {
+export function ternarySearch(arr, key, low = 0, high = arr.length - 1) {
   if (high > low) {
     let mid1 = Math.floor(low + (high - low) / 3);
     let mid2 = Math.floor(high + (high - low) / 3);
@@ -28,9 +36,12 @@ function ternarySearch(arr, key, low = 0, high = arr.length - 1) {
   }
 }
 
-const arr = [1, 3, 5, 7, 9, 11, 13, 15];
+// const arr = [1, 3, 5, 7, 9, 11, 13, 15];
 const val1 = 7;
 const val2 = 8;
+const arr = [2, 4, 6, 6, 6, 6, 8, 10];
+const target = 6;
+const result = ternarySearch(arr, target);
 
-console.log(ternarySearch(arr, val1)); // Output: 3
-console.log(ternarySearch(arr, val2)); // Output: -1
+console.log(result); // Output: 3
+// console.log(ternarySearch(arr, val2)); // Output: -1
