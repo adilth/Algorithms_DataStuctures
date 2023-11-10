@@ -4,7 +4,7 @@
  @timeComplexity {O(n^2)}
 */
 
-function bubbleSort(items) {
+export function bubbleSort(items) {
   let noSwap;
   for (let i = items.length; i > 0; i--) {
     noSwap = true;
