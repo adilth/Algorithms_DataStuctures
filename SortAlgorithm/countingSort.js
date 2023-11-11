@@ -8,7 +8,10 @@ The time complexity of Counting Sort is O(n + k), where n is the size of the inp
 @return {number[]}
 */
 
-function countingSort(arr, n = arr?.length) {
+export function countingSort(arr, n = arr?.length) {
+  if (!Array.isArray(arr) || arr.some((num) => typeof num !== "number"))
+    throw new Error("please enter valid data an array");
+  if (arr.length == 0) return [];
   let result = new Array(n).fill(0);
   let max = Math.max(...arr);
   let min;
