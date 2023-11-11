@@ -2,11 +2,11 @@
 In this implementation, the function combSort takes an array arr as its input and returns the sorted array. The function works by comparing elements that are gap indices apart, and swapping them if they are in the wrong order. The gap value starts at the length of the input array, and is repeatedly reduced by a shrinking factor until it reaches 1. This process is similar to that of bubble sort, but with larger gaps between the elements being compared in the early passes.
 
 The time complexity of Comb Sort is O(n^2) in the worst case, but can be improved to O(n log n) by using a better shrinking factor. The best known shrinking factor is 1/1.3, which yields a time complexity of O(n log n).
- * @param {number[]} list The array of numbers to sort.
+ * @param {number[]} arr The array of numbers to sort.
  * @return {number[]} The array of numbers sorted in increasing order.
  * */
 
-function combSort(arr) {
+export function combSort(arr) {
   if (arr.length == 0) return arr;
   let shrink = 1.3;
   let sorted = false;
