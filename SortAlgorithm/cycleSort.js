@@ -5,7 +5,7 @@ Cycle Sort is an unstable comparison sort algorithm with poor performance. Cycle
 *@return {number[]} 
 */
 
-function cycleSort(list) {
+export function cycleSort(list) {
   // last item will already be in place
   for (let cycleStart = 0; cycleStart < list.length - 1; cycleStart++) {
     let item = list[cycleStart];
