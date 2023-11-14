@@ -7,7 +7,7 @@
  @timeComplexity {O(n log n)}
  * */
 
-function heapSort(arr) {
+export function heapSort(arr) {
   // Build heap (rearrange array)
   for (let i = Math.floor(arr.length / 2) - 1; i > -1; i--) {
     heapify(arr, arr.length, i);
