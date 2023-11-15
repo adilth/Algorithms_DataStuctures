@@ -14,7 +14,7 @@ function swap(arr, i, j) {
  * @param {Number[]} arr
  * @returns {Number[]}
  */
-function oddEvenSort(arr) {
+export function oddEvenSort(arr) {
   let sorted = false;
   while (!sorted) {
     sorted = true;
