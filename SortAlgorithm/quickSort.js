@@ -1,11 +1,11 @@
-/*Description // quick sort
+/**Description // quick sort
 Quick sort is a comparison sorting algorithm that uses a divide and conquer strategy.
-@param {number[]} arr
+@param {number[]} items
  @returns {number[]}
  @timeComplexity {O(n log n)}
 */
 
-function quickSort(items) {
+export function quickSort(items) {
   if (items.length <= 1) return items;
   const pivot = items[0];
   const left = [];
