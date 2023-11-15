@@ -9,7 +9,7 @@ The time complexity of Merge Sort is O(n log n), which means that it takes a log
 @returns {number[]} sorted array
 */
 
-function mergeSort(arr) {
+export function mergeSort(arr) {
   if (arr.length < 2) return arr;
   const mid = Math.floor(arr.length / 2);
   const left = mergeSort(arr.slice(0, mid));
