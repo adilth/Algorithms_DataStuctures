@@ -13,31 +13,51 @@ Here is a brief explanation of how the algorithm works:
 7- The final concatenated array is the sorted array.
 
 */
-function radixSort(arr) {
-  let max = Math.max(...arr);
-  let divisor = 1;
-  for (let i = 0; i < max; i++) {
-    const bucket = Array.from({ length: 10 }, () => []);
-    for (let num of arr) {
-      bucket[Math.floor(num / divisor) % 10].push(num);
+/**
+ *
+ * @param {number[]} arr
+ * @returns {number[] | Error}
+ */
+export function radixSort(arr) {
+  if (!Array.isArray(arr) || arr.some((num) => typeof num !== "number"))
+    throw new Error("please enter valid data an array");
+  const negative = arr.filter((num) => num < 0);
+  const positive = arr.filter((num) => num >= 0);
+
+  // Sort positive numbers
+  const sortPositive = (arr) => {
+    let max = Math.max(...arr);
+    let divisor = 1;
+    for (let i = 0; i < max; i++) {
+      const bucket = Array.from({ length: 10 }, () => []);
+      for (let num of arr) {
+        bucket[Math.floor(num / divisor) % 10].push(num);
+      }
+      arr = bucket.flat();
+      divisor *= 10;
     }
-    arr = bucket.flat();
-    divisor *= 10;
-  }
-  return arr;
+    return arr;
+  };
+  // Sort positive and negative separately
+  const sortedPositive = sortPositive(positive);
+  const sortedNegative = sortPositive(
+    negative.map((num) => Math.abs(num))
+  ).reverse();
+
+  // Combine the results
+  return sortedNegative.map((num) => -num).concat(sortedPositive);
 }
 
 // Example usage
-const arr = [5, 3, 8, 4, 2];
+const negative = [-5, -2, -8, -1, -3];
 const arr2 = [
   31, 27, 28, 42, 13, 8, 11, 30, 17, 41, 15, 43, 1, 36, 9, 16, 20, 35, 48, 37,
   7, 26, 34, 21, 22, 6, 29, 32, 49, 10, 12, 19, 24, 38, 5, 14, 44, 40, 3, 50,
   46, 25, 18, 33, 47, 4, 45, 39, 23, 2,
 ];
 
-const sortedArr = radixSort(arr);
-console.log(sortedArr); // Output: [2, 3, 4, 5, 8]
 console.log(radixSort(arr2));
+console.log(radixSort(negative));
 /*
 [
    1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,
