@@ -12,7 +12,7 @@ The time complexity of Selection Sort is O(n^2), which means that it takes a qua
  @timeComplexity {O(n^2)}
 */
 
-function selectionSort(arr) {
+export function selectionSort(arr) {
   for (let i = 0; i < arr.length - 1; i++) {
     let minIdx = i;
     for (let j = i + 1; j < arr.length; j++) {
