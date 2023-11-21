@@ -11,7 +11,7 @@ Here is a brief explanation of how the algorithm works:
 3- Repeat step 2 until the entire array is sorted.
 */
 
-function shellSort(arr) {
+export function shellSort(arr) {
   let gap = Math.floor(arr.length / 2);
 
   while (gap > 0) {
