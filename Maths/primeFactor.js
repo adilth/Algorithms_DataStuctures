@@ -5,15 +5,17 @@ A prime factor is a natural number, other than 1, whose only factors are 1 and i
 */
 
 export default function primeFactors(n) {
-  let primeFac = [];
-  for (let i = 2; i * i <= n; i++) {
-    while (n % i == 0) {
-      primeFac.push(i);
-      n = Math.floor(n / i);
+  let arr = [];
+  let i = 2;
+  while (i <= n) {
+    if (n % i == 0) {
+      n = n / i;
+      arr.push(i);
+    } else {
+      i++;
     }
   }
-  if (n > 0) primeFac.push(n);
-  return primeFac;
+  return arr;
 }
 
 console.log(primeFactors(10)); //[ 2, 5 ]
