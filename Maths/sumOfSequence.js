@@ -1,4 +1,4 @@
-/*Description // sum sequence
+/**Description // sum sequence
 Your task is to write a function which returns the sum of a sequence of integers.
 
 The sequence is defined by 3 non-negative values: begin, end, step.
@@ -11,26 +11,30 @@ Examples
 2,6,2 --> 12 (2 + 4 + 6)
 1,5,1 --> 15 (1 + 2 + 3 + 4 + 5)
 1,5,3  --> 5 (1 + 4)
+@param {Number} start 
+@param {Number} end 
+@param {Number} step 
+@returns {Number}
 */
 
-function sumOfSequence(start, end, step) {
-  if (start > end) return 0;
+export default function sumOfSequence(start, end, step) {
+  if (start > end || step < 1) return 0;
   let sum = 0;
   for (let i = start; i <= end; i += step) {
     sum += i;
-    count++;
   }
   return sum;
 }
 
-const sequenceSum = (begin, end, step) => {
-  if (begin > end) {
+export const sequenceSum = (begin, end, step) => {
+  if (begin > end || step < 1) {
     return 0;
   }
   return begin + sequenceSum(begin + step, end, step);
 };
 
 console.log(sumOfSequence(2, 2, 2)); //2
-console.log(sumOfSequence(2, 6, 2)); //12
-console.log(sumOfSequence(1, 5, 1)); //15
-console.log(sumOfSequence(1, 5, 3)); //5
+console.log(sumOfSequence(5, 5, 1)); //12
+console.log(sumOfSequence(10, 5, 1)); //15
+console.log(sumOfSequence(1, 100, 0)); //5
+// expect().toBe(0); // Start is greater than end
