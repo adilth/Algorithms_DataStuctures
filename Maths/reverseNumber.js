@@ -5,16 +5,13 @@ ReverseNumber return the reversed value of the given number.
 */
 export default function reverseNumber(num) {
   if (typeof num !== "number") {
-    return new TypeError("Argument is not a number.");
+    throw new Error("Argument is not a number.");
   }
-  let reverseNum = 0;
-  while (num > 0) {
-    const lastDigit = num % 10;
-    reverseNum = reverseNum * 10 + lastDigit;
-    num = Math.floor(num / 10);
-  }
-  return reverseNum;
+  return (
+    parseFloat(num.toString().split("").reverse().join("")) * Math.sign(num)
+  );
 }
 
-console.log(reverseNumber(12)); //21
+// console.log(reverseNumber("12")); //21
+// console.log(reverseNumber("abc")); //21
 console.log(reverseNumber(321)); //123
