@@ -15,7 +15,13 @@
 //   return true;
 // }
 //complexity is {O(sqrt(n)}
+/**
+ *
+ * @param {number} num
+ * @returns
+ */
 export function isPrime(num) {
+  if (num < 1) return false;
   let sqrtNum = Math.floor(Math.sqrt(num));
   let prime = num != 1;
   for (let i = 2; i < sqrtNum + 1; i++) {
@@ -27,16 +33,24 @@ export function isPrime(num) {
   }
   return prime;
 }
+/**
+ *
+ * @param {number} start
+ * @param {number} end
+ * @returns
+ */
 export function sumOfPrimesInRange(start, end) {
   let sum = [];
-
+  if (start < 0) {
+    start = 1;
+  }
   for (let i = start; i <= end; i++) {
     if (isPrime(i)) {
       sum.push(i);
     }
   }
 
-  return sum;
+  return sum.reduce((acc, cu) => acc + cu, 0);
 }
 
-console.log(sumOfPrimesInRange(1, 100));
+console.log(sumOfPrimesInRange(0, 5));
