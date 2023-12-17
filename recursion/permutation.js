@@ -2,26 +2,35 @@
 Given an array of nums or string, return all the possible permutations. You can return the answer in any order.
 
  * @param {number[]} arr
- * @return {number[][]}
+ * @return {number | string [][]}
 */
 
-function permutation(arr) {
-  if (arr.length == 0) return [[]];
-  let first = arr[0];
+export function permutation(arr) {
+  if (arr.length == 0) return [];
+  let seen = new Set();
+  const perms = (a) => {
+    if (a.length == 0) return [[]];
+    if (seen.has(a.join(","))) return;
+    let first = a[0];
 
-  let rest = arr.slice(1);
-  let permsWithoutFirst = permutation(rest);
-  let allPermutation = [];
-  permsWithoutFirst.forEach((perm) => {
-    for (let i = 0; i <= perm.length; i++) {
-      let premWithFirst = [...perm.slice(0, i), first, ...perm.slice(i)];
-      allPermutation.push(premWithFirst);
-    }
-  });
-  return allPermutation;
+    let rest = a.slice(1);
+    let permsWithoutFirst = perms(rest);
+    /**@type {number[][]} allPermutation*/
+    let allPermutation = [];
+    permsWithoutFirst.forEach((perm) => {
+      for (let i = 0; i <= perm.length; i++) {
+        let premWithFirst = [...perm.slice(0, i), first, ...perm.slice(i)];
+        seen.add(premWithFirst.join(","));
+        allPermutation.push(premWithFirst);
+      }
+    });
+    console.log(seen);
+    return allPermutation;
+  };
+  return perms(arr);
 }
 
-function allPermutations(arr) {
+export function allPermutations(arr) {
   let results = [];
   function permute(arr, memo = []) {
     let cur;
@@ -40,7 +49,7 @@ function allPermutations(arr) {
   return results;
 }
 
-console.log(permutation(["a", "b", "c", "d"]));
+console.log(permutation([1, 1, 2]));
 // console.log(allPermutations(["a", "b", "c"]));
 /*output
 [
