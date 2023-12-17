@@ -3,21 +3,27 @@ make a function that generate all passible combinations each comb need to be in 
 
 
 */
+/**
+ *
+ * @param {number|string[]} arr
+ * @returns {number|string[]}
+ */
 
-function combinations(arr) {
+export function combinations(arr) {
+  if (!Array.isArray(arr)) return [[]];
   if (!arr.length) return [[]];
-  let [first, ...rest] = arr;
+  let [first, ...rest] = [...new Set(arr)];
   let combWithoutFirst = combinations(rest);
 
   let combWithFirst = [];
   combWithoutFirst.forEach((comb) => {
-    let allComb = [...comb, first];
+    let allComb = [first, ...comb];
     combWithFirst.push(allComb);
   });
-  return [...combWithFirst, ...combWithoutFirst];
+  return [...combWithoutFirst, ...combWithFirst];
 }
 
-console.log(combinations(["a", "b", "c", "d"]));
+console.log(combinations([1, 1, 2]));
 /* output
 [
   [ 'd', 'c', 'b', 'a' ],
