@@ -4,10 +4,15 @@
  * What is Binary Equivalent?
  * - In binary number system, a number is represented in terms of 0s and 1s,
 @param {number} num
-@returns {number}
+@returns {BinaryData}
 */
 
-function binaryEquivalent(num) {
+export default function binaryEquivalent(num) {
+  if (num < 0) {
+    // Handle negative numbers by returning their two's complement representation
+    num = Math.pow(2, 32) + num; // Assuming 32-bit representation, adjust as needed
+  }
+
   if (num === 0 || num === 1) return String(num);
 
   return binaryEquivalent(Math.floor(num / 2)) + String(num % 2);
@@ -15,4 +20,4 @@ function binaryEquivalent(num) {
 
 console.log(binaryEquivalent(4)); //100
 console.log(binaryEquivalent(5)); //101
-console.log(binaryEquivalent(12)); //1100
+console.log(binaryEquivalent(-5)); //1100
